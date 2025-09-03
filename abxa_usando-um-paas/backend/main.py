@@ -11,17 +11,14 @@ class Item(BaseModel):
     price: float
     is_offer: Union[bool, None] = None
 
+class UserRequest(BaseModel):
+    user_name: str
 
 @app.get("/")
 def read_root():
-    return {"Hello": "It's up!!!"}
+    return {"abxa": "Atividade - Subindo EC2"}
 
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id}
+@app.post("/auth/me")
+def auth_me(request: UserRequest):
+    username = request.user_name
+    return {"user": username, "ping": "pong"}
